@@ -1,0 +1,39 @@
+<!-- <div class="container d-flex justify-content-between" *ngIf="mostrar ;else listadoVacio">
+    
+    <table class="table">
+        <h1>Listado de sus patentes registradas</h1>
+    <div class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">
+                    <button class="btn btn-lg btn-outline-success" (click)="open()">Registrar patente</button>
+                </th>
+                <th scope="col"> <button class="btn btn-lg btn-outline-success" [routerLink]="['/miCuenta']" routerLinkActive="router-link-active">Mi cuenta</button></th>
+                
+            </tr>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Numero de patente</th>
+    
+            </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let h of datos | slice: (page-1) * pageSize : page * pageSize; index as i">   
+                    <td> <h3>{{i+1}}</h3></td>
+                    <td>{{h?.numero}}</td>
+                    
+                    <td >
+                        <button class="btn btn-danger" (click)="eliminarPatente(i+1)"> Eliminar</button>
+                    </td>
+            </tr>
+        </tbody>
+        
+        <ngb-pagination 
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="datos.length" >
+        </ngb-pagination>
+    
+    </div>
+</table> -->
