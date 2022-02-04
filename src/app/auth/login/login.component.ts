@@ -7,59 +7,50 @@ import { TokenService } from 'src/app/service/token.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   isLogged = false;
   isLoginFail = false;
   loginUsuario!: LoginUsuario;
   nombreUsuario!: string;
   password!: string;
-  roles : string [] = [];
+  roles: string[] = [];
   errMsj!: string;
 
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-
-    if (this.tokenService.getToken()){
-
-      this.isLogged = true ;
+    if (this.tokenService.getToken()) {
+      this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
     }
   }
 
-  onLogin (): void {
-
-    this.loginUsuario= new LoginUsuario(this.nombreUsuario, this.password);
+  onLogin(): void {
+    this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
     this.authService.login(this.loginUsuario).subscribe(
-      data =>{
+      (data) => {
         this.isLogged = true;
-        this.isLoginFail =false;
+        this.isLoginFail = false;
 
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.nombreUsuario);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
         this.router.navigate(['/']);
-      
       },
-      err =>{
+      (err) => {
         this.isLogged = false;
         this.isLoginFail = true;
         this.errMsj = err.error.message;
         //console.log(err.error.message);
-        
-      }     
+      }
     );
   }
-
-
-
 }

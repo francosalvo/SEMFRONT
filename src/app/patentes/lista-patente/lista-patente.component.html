@@ -1,39 +1,95 @@
-<!-- <div class="container d-flex justify-content-between" *ngIf="mostrar ;else listadoVacio">
-    
-    <table class="table">
-        <h1>Listado de sus patentes registradas</h1>
-    <div class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th scope="col">
-                    <button class="btn btn-lg btn-outline-success" (click)="open()">Registrar patente</button>
-                </th>
-                <th scope="col"> <button class="btn btn-lg btn-outline-success" [routerLink]="['/miCuenta']" routerLinkActive="router-link-active">Mi cuenta</button></th>
-                
-            </tr>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Numero de patente</th>
-    
-            </tr>
-        </thead>
-        <tbody >
-            <tr *ngFor="let h of datos | slice: (page-1) * pageSize : page * pageSize; index as i">   
-                    <td> <h3>{{i+1}}</h3></td>
-                    <td>{{h?.numero}}</td>
-                    
-                    <td >
-                        <button class="btn btn-danger" (click)="eliminarPatente(i+1)"> Eliminar</button>
-                    </td>
-            </tr>
-        </tbody>
-        
-        <ngb-pagination 
+<app-menu></app-menu>
+
+<div
+  class="table d-flex justify-content-center"
+  style="color: rgb(6, 6, 66); font-size: 50px"
+>
+  Lista de patentes
+</div>
+
+<div class="container d-flex justify-content-between">
+  <table class="table d-flex justify-content-center">
+    <td>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [routerLink]="['/nuevapatente']"
+      >
+        Registrar nueva patente
+      </button>
+    </td>
+    <tbody></tbody>
+
+    <tbody>
+      <tr
+        *ngFor="
+          let h of datosPatente | slice: (page - 1) * pageSize:page * pageSize;
+          index as i
+        "
+      >
+        <td>
+          <h3>{{ i + 1 }}</h3>
+        </td>
+        <td>{{ h?.patente }}</td>
+        <td>
+          <button
+            class="btn btn-success"
+            (click)="verifyParking(i + 1)"
+            [disabled]="parkingOn"
+          >
+            Iniciar estacionamiento
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="editPatent(i + 1)">
+            Editar
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="eliminarPatente(i + 1)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+
+      <ngb-pagination
         [(page)]="page"
         [pageSize]="pageSize"
-        [collectionSize]="datos.length" >
-        </ngb-pagination>
-    
+        [collectionSize]="datosPatente.length"
+      >
+      </ngb-pagination>
+    </tbody>
+
+    <div class="card text-center" style="width: 20rem" *ngIf="parkingOn">
+      <div class="card-body">
+        <h2 class="card-title">Estacionamiento iniciado</h2>
+        <h3 class="card-subtitle mb-2 text-muted">
+          Recordatorio: Para iniciar un estacionamiento con otra patente primero
+          debe finalizar el actual.
+        </h3>
+
+        <div class="content">
+          <div>
+            <h2>
+              Tiempo transcurrido: <br />
+              {{ TimePrice.hours + " " }}hs: {{ TimePrice.minutes + " " }}min
+            </h2>
+          </div>
+          <div>
+            <h2>
+              Total a pagar: <br />
+              ${{ TimePrice.price }}<br />
+            </h2>
+          </div>
+        </div>
+        <button
+          class="btn btn-danger"
+          (click)="verifyParking(1)"
+          [disabled]="!parkingOn"
+        >
+          Finalizar estacionamiento
+        </button>
+      </div>
     </div>
-</table> -->
+  </table>
+</div>

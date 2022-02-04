@@ -8,9 +8,8 @@ describe('ListaPatenteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListaPatenteComponent ]
-    })
-    .compileComponents();
+      declarations: [ListaPatenteComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class nuevaPatente {\n  constructor(patente, nombreUsuario) {\n    this.patente = patente;\n    this.user_name = nombreUsuario;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

@@ -8,9 +8,8 @@ describe('NuevaPatenteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NuevaPatenteComponent ]
-    })
-    .compileComponents();
+      declarations: [NuevaPatenteComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
