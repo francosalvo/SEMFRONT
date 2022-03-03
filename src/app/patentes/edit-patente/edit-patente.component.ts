@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Patente } from 'src/app/models/patente';
+import { Patent } from 'src/app/models/patent';
 import { PatenteService } from 'src/app/service/patente.service';
 import { TokenService } from 'src/app/service/token.service';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit-patente.component.css'],
 })
 export class EditPatentComponent implements OnInit {
-  @Input() patent!: Patente;
+  @Input() patent!: Patent;
   number!: any;
   namePatent!: string;
 
@@ -38,7 +38,7 @@ export class EditPatentComponent implements OnInit {
     //Swal.fire('No se ha realizado ningun cambio','','info')
     //}else{
     if (this.validateExpression(this.number)) {
-      let patenteEdit = new Patente(
+      let patenteEdit = new Patent(
         this.namePatent,
         this.tokenService.getUserName()
       );
@@ -61,7 +61,7 @@ export class EditPatentComponent implements OnInit {
 
   findById() {
     this.patentService.get(this.patent.id).subscribe({
-      next: (data: Patente) => {
+      next: (data: Patent) => {
         console.log('dato de la patente obtenida: ', data);
         this.namePatent = data.user.nombreUsuario;
         this.patent = data;

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Patente } from 'src/app/models/patente';
+import { Patent } from 'src/app/models/patent';
 import { PatenteService } from 'src/app/service/patente.service';
 import { TokenService } from 'src/app/service/token.service';
-import { UsuarioService } from 'src/app/service/usuario.service';
+import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NuevaPatenteComponent } from '../nueva-patente/nueva-patente.component';
+import { NewPatentComponent } from '../nueva-patente/newPatent.component';
 import { TimePriceDTO } from 'src/app/models/DTOTimePrice';
 import { Parking } from 'src/app/models/Parking';
 import { ParkingService } from 'src/app/service/parking.service';
@@ -18,7 +18,7 @@ import { EditPatentComponent } from '../edit-patente/edit-patente.component';
 })
 export class ListaPatenteComponent implements OnInit {
   constructor(
-    private usuarioService: UsuarioService,
+    private userService: UserService,
     private tokenService: TokenService,
     private patenteService: PatenteService,
     private modalService: NgbModal,
@@ -34,7 +34,7 @@ export class ListaPatenteComponent implements OnInit {
   TimePrice: TimePriceDTO = new TimePriceDTO(0, 0, 0);
   interval: any;
 
-  public datosPatente: Patente[] = [];
+  public datosPatente: Patent[] = [];
 
   pageSize = 5;
 
@@ -56,7 +56,7 @@ export class ListaPatenteComponent implements OnInit {
   }
   //obtengo la lista de las patentes del usuario iniciado
   getPatentes(): void {
-    this.usuarioService.getPatentes().subscribe((data: any) => {
+    this.userService.getPatentes().subscribe((data: any) => {
       console.log(data);
       this.datosPatente = data;
       if (data.length == 0) {
@@ -99,7 +99,7 @@ export class ListaPatenteComponent implements OnInit {
     });
   }
 
-  eliminarPatente(row: number) {
+  /* eliminarPatente(row: number) {
     let patent = this.datosPatente[row - 1];
     console.log('patente: ', patent);
     this.patenteService.delete(patent.id).subscribe(
@@ -111,15 +111,40 @@ export class ListaPatenteComponent implements OnInit {
       }
     );
 
+*/
+
+  eliminarPatente(row: number) {
+    Swal.fire({
+      title: 'Eliminar patente',
+      text: 'Esta seguro que desea eliminar la patente',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.value) {
+        let patent = this.datosPatente[row - 1];
+        console.log('patente: ', patent);
+        this.patenteService.delete(patent.id).subscribe(
+          (data) => {
+            this.alertaDelete(data.mensaje);
+          },
+          (err) => {
+            this.errorDelete(err.error.mensaje);
+          }
+        );
+      }
+    });
+
     ///modal registrar patente
   }
   registrarPatente() {
-    this.modalService.open(NuevaPatenteComponent);
+    this.modalService.open(NewPatentComponent);
   }
 
   ///modal registrar patente
   savePatent() {
-    this.modalService.open(NuevaPatenteComponent);
+    this.modalService.open(NewPatentComponent);
   }
   //editarPatente
   editPatent(row: number) {
@@ -146,7 +171,7 @@ export class ListaPatenteComponent implements OnInit {
         let parking = new Parking(
           today.toString(),
           true,
-          this.datosPatente[row - 1].patente
+          this.datosPatente[row - 1].patent
         );
         parking.username = this.tokenService.getUserName()!;
         //enviamos el estacionamiento-> si devuelve NULL entonces el estacionamiento no se pudo guardar
@@ -215,7 +240,7 @@ export class ListaPatenteComponent implements OnInit {
   //obtenemos la cuenta corriente del usuario y seteamos nuestra variable "this.saldo" con "cuentaCorriente.saldo"
   getBalance(): void {
     let username = this.tokenService.getUserName()!;
-    this.usuarioService.getCurrentAccount(username).subscribe((data: any) => {
+    this.userService.getCurrentAccount().subscribe((data: any) => {
       console.log(data);
       this.balance = data.balance;
     });

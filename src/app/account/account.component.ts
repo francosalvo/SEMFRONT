@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CurrentAccount } from 'src/app/models/CurrentAccount';
 import { CurrentAccountDataDTO } from 'src/app/models/CurrentAccountDataDTO';
 import { TokenService } from 'src/app/service/token.service';
-import { UsuarioService } from 'src/app/service/usuario.service';
+import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ export class accountComponent implements OnInit {
   amount!: number; // monto a cargar
 
   constructor(
-    private userService: UsuarioService,
+    private userService: UserService,
     private tokenService: TokenService
   ) {}
 

@@ -21,7 +21,7 @@ export class ProdInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let intReq = req;
     const token = this.tokenService.getToken();
-    // console.log("contenido de token ", token);
+    console.log("contenido de token ", token);
     if (token != null) {
       intReq = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + token),

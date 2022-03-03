@@ -14,26 +14,28 @@ import { myaccountComponent } from './account/myaccount.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegistroComponent } from './auth/registro/registro.component';
+import { RegisterComponent } from './auth/registro/register.component';
+import { HistoryComponent } from './history/history.component';
 import { IndexComponent } from './index/index.component';
 import { intercerptorProvider } from './interceptors/prod-interceptor.service';
 import { MenuComponent } from './menu/menu.component';
 import { EditPatentComponent } from './patentes/edit-patente/edit-patente.component';
 import { ListaPatenteComponent } from './patentes/lista-patente/lista-patente.component';
-import { NuevaPatenteComponent } from './patentes/nueva-patente/nueva-patente.component';
+import { NewPatentComponent } from './patentes/nueva-patente/newPatent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListaPatenteComponent,
     LoginComponent,
-    RegistroComponent,
+    RegisterComponent,
     MenuComponent,
     IndexComponent,
-    NuevaPatenteComponent,
+    NewPatentComponent,
     accountComponent,
     EditPatentComponent,
     myaccountComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,6 @@ import { NuevaPatenteComponent } from './patentes/nueva-patente/nueva-patente.co
   ],
   providers: [intercerptorProvider],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class AppModule {}

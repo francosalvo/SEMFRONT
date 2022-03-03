@@ -13,9 +13,9 @@
       <button
         type="submit"
         class="btn btn-success"
-        [routerLink]="['/nuevapatente']"
+        [routerLink]="['/newPatent']"
       >
-        Registrar nueva patente
+        Registrar nueva patent
       </button>
     </td>
     <tbody></tbody>
@@ -30,7 +30,12 @@
         <td>
           <h3>{{ i + 1 }}</h3>
         </td>
-        <td>{{ h?.patente }}</td>
+        <td
+          class="table d-flex justify-content-center"
+          style="color: rgb(6, 6, 66); font-size: 30px"
+        >
+          {{ h?.patent }}
+        </td>
         <td>
           <button
             class="btn btn-success"
@@ -41,7 +46,7 @@
           </button>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="editPatent(i + 1)">
+          <button class="btn btn-primary" (click)="editPatent(i + 1)">
             Editar
           </button>
         </td>

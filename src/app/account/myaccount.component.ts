@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { CurrentAccount } from '../models/CurrentAccount';
 import { CurrentAccountDataDTO } from '../models/CurrentAccountDataDTO';
 import { TokenService } from '../service/token.service';
-import { UsuarioService } from '../service/usuario.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-Account',
@@ -15,7 +15,7 @@ export class myaccountComponent implements OnInit {
   amount!: number; // monto a cargar
 
   constructor(
-    private userService: UsuarioService,
+    private userService: UserService,
     private tokenService: TokenService
   ) {}
 
